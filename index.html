@@ -187,12 +187,12 @@
 
       const addContent = () => {
         var content = document.getElementById('askInput').value;
-        fetch('http://ip-api.com/json/?fields=61439')
-          .then((res) => res.json())
-          .then((res) => {
-            console.log(res);
-            var ip = res.query;
-            db.collection('ask').add({ 아이디: ip, 내용: content });
+        fetch('http://api.ipify.org')
+          .then((res) => res.text())
+          .then((ip) => {
+            console.log(ip);
+            var user_ip = ip;
+            db.collection('ask').add({ 아이피: user_ip, 내용: content });
             alert('등록되었습니다.');
           })
           .then(() => {
