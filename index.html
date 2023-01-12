@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이승재 - asked 자유로운 질문답변!</title>
+    <link rel="icon" type="image/png" href="https://asked.kr/asked.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/616b462708.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="menu_bar">
+      <i class="fa fa-bars"></i>
+      <p>leeben112</p>
+    </div>
+    <div class="download_bar">
+      <img src="./img/mobileTopAd.png" style="width: 300px" />
+    </div>
+    <div class="ask_container">
+      <div class="profile">
+        <div class="profile_container">
+          <div>
+            <img src="./img/userimage.png" style="width: 45px" />
+          </div>
+          <div style="margin-top: -10px; margin-left: 13px">
+            <p style="font-weight: 600">이승재</p>
+            <p
+              style="
+                font-size: 11px;
+                font-weight: 800;
+                color: rgb(156, 156, 156);
+                margin-top: -15px;
+              "
+            >
+              익명질문을 남겨주세요.
+            </p>
+          </div>
+        </div>
+        <div class="follow_container">
+          <div
+            class="v-line"
+            style="
+              border-left: 1.8px solid rgb(221, 221, 221);
+              height: 38px;
+              margin-top: 7px;
+            "
+          ></div>
+          <div style="display: inline-block; margin-left: 35px">
+            <div
+              style="
+                display: inline-flex;
+                margin-top: -10px;
+                margin-right: 10px;
+                margin-bottom: -10px;
+              "
+            >
+              <p
+                style="
+                  font-size: 12px;
+                  font-weight: 800;
+                  color: rgb(156, 156, 156);
+                "
+              >
+                팔로워
+              </p>
+              <p
+                style="
+                  font-size: 15px;
+                  font-weight: 800;
+                  margin-left: 3px;
+                  margin-top: 10px;
+                "
+              >
+                3
+              </p>
+            </div>
+            <div>
+              <img
+                onclick="alert('로그인 후 사용할 수 있습니다.')"
+                src="./img/fwmoff.png"
+                style="width: 60px; margin-left: -5px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ask_input">
+        <div>
+          <div>
+            <input
+              id="askInput"
+              type="text"
+              placeholder="질문을 입력해 주세요"
+            />
+          </div>
+          <div class="button_container">
+            <button
+              style="
+                border: 1.5px solid rgb(219, 219, 219);
+                border-radius: 15px;
+                padding: 4px 15px 4px 15px;
+              "
+              onclick="alert('공개질문은 로그인 후 사용 가능합니다.')"
+            >
+              익명 ▼
+            </button>
+            <button
+              id="submitBtn"
+              style="
+                border: none;
+                background-color: #7986cb;
+                color: white;
+                border-radius: 15px;
+                padding: 5.5px 15px 5.5px 15px;
+                margin-left: 7px;
+              "
+              type="submit"
+            >
+              질문하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="margin: -8px" color="#F3F3F5" noshade />
+    <div class="ask_button_container">
+      <div class="ask_button">
+        <p>0</p>
+        <p style="margin-top: -15px; font-size: 10px; font-weight: 300">
+          답변완료
+        </p>
+      </div>
+      <div class="ask_button" onclick="new_ask()">
+        <p id="new_ask" style="color: #b3b3b3">0</p>
+        <p
+          style="
+            color: #d1d1d1;
+            margin-top: -15px;
+            font-size: 10px;
+            font-weight: 300;
+          "
+        >
+          새질문
+        </p>
+      </div>
+      <div class="ask_button" onclick="new_ask()">
+        <p style="color: #b3b3b3">0</p>
+        <p
+          style="
+            color: #d1d1d1;
+            margin-top: -15px;
+            font-size: 10px;
+            font-weight: 300;
+          "
+        >
+          거절질문
+        </p>
+      </div>
+    </div>
+    <hr style="margin: -8px; width: 34%" color="#7986cb" noshade />
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: 'AIzaSyASF91R4gFwdrmRitTmBooCICv6k2CZNwY',
+        authDomain: 'asked-39de0.firebaseapp.com',
+        databaseURL: 'https://asked-39de0-default-rtdb.firebaseio.com',
+        projectId: 'asked-39de0',
+        storageBucket: 'asked-39de0.appspot.com',
+        messagingSenderId: '725654601071',
+        appId: '1:725654601071:web:1774222e2813a4ebbdfc9a',
+        measurementId: 'G-PTV4RL5PYK',
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+      const db = firebase.firestore();
+
+      const addContent = () => {
+        var content = document.getElementById('askInput').value;
+        fetch('http://ip-api.com/json/?fields=61439')
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            var ip = res.query;
+            db.collection('ask').add({ 아이디: ip, 내용: content });
+            alert('등록되었습니다.');
+          })
+          .then(() => {
+            setTimeout('window.location.reload()', 3000);
+          });
+      };
+
+      var btn = document.getElementById('submitBtn');
+      btn.addEventListener('click', addContent);
+
+      db.collection('ask')
+        .get()
+        .then((snap) => {
+          size = snap.size;
+          document.getElementById('new_ask').innerHTML = size;
+        });
+    </script>
+  </body>
+</html>
